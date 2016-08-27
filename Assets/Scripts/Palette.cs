@@ -11,6 +11,14 @@ class Palette
         new Color(85f/255f, 153f/255f, 192f/255f)
     };
 
+    public static string[] Hex =
+    {
+        "c13a3a",
+        "9bdc8b",
+        "a7a6c1",
+        "5599c0"
+    };
+
     public static Color GetColor(PaletteColor color)
     {
         return Colors[(int)color];
@@ -29,6 +37,11 @@ class Palette
 
         color = PaletteColor.InvalidColor;
         return false;
+    }
+
+    public static string GetHex(PaletteColor color)
+    {
+        return Hex[(int)color];
     }
 }
 
