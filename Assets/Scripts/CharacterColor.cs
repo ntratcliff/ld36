@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-#if UNITY_EDITOR
-[ExecuteInEditMode]
-#endif
 public class CharacterColor : MonoBehaviour
 {
     public PaletteColor Color;
@@ -32,9 +29,11 @@ public class CharacterColor : MonoBehaviour
         if (tunicMat == null)
             Debug.LogError("Could not find tunic material!");
 
-        tunicColor = tunicMat.color;
-        if (!Palette.GetPaletteColor(tunicColor, out Color))
-            Debug.LogWarning("Current color is not a valid palette color!");
+        tunicColor = Palette.GetColor(Color);
+        if(tunicMat.color != tunicColor)
+        {
+            tunicMat.color = tunicColor;
+        }
     }
 
     // Update is called once per frame
