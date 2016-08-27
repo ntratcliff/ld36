@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CollapseOnObstacle : MonoBehaviour
 {
+    public Vector3 ImpulseTorque;
+
     // Use this for initialization
     void Start()
     {
@@ -31,6 +33,8 @@ public class CollapseOnObstacle : MonoBehaviour
             player.gameObject.layer = LayerMask.NameToLayer("Default");
             StartCoroutine(DetachDelay(player, 0.13f));
 
+            //add impulse torque
+            player.GetComponent<Rigidbody>().AddTorque(ImpulseTorque, ForceMode.Impulse);
         }
     }
 
