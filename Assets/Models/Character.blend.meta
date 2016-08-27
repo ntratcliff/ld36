@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 1a462ff94c0c2be4882c7ce6e73ed48b
-timeCreated: 1472273131
+guid: d168eeb6fa5e1524b8113060044e5077
+timeCreated: 1472315298
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Armature
-    100002: //RootNode
-    100004: Body
-    100006: Bone
-    100008: Bone_001
-    100010: Bone_002
-    100012: Bone_003
-    100014: Bone_004
+    100002: Body
+    100004: Bone
+    100006: Bone_001
+    100008: Bone_002
+    100010: Bone_003
+    100012: Bone_004
+    100014: //RootNode
     100016: Head
     100018: Left_Arm
     100020: Left_Foot
     100022: Right_Arm
     100024: Right_Foot
     400000: Armature
-    400002: //RootNode
-    400004: Body
-    400006: Bone
-    400008: Bone_001
-    400010: Bone_002
-    400012: Bone_003
-    400014: Bone_004
+    400002: Body
+    400004: Bone
+    400006: Bone_001
+    400008: Bone_002
+    400010: Bone_003
+    400012: Bone_004
+    400014: //RootNode
     400016: Head
     400018: Left_Arm
     400020: Left_Foot
@@ -71,7 +71,7 @@ ModelImporter:
       name: Default Take
       takeName: Default Take
       firstFrame: -1
-      lastFrame: 12
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -178,7 +178,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
