@@ -16,7 +16,16 @@ public class SpawnObstacle : MonoBehaviour
     void Update()
     {
         //get a random lane and try to spawn something
-        int lane = Random.Range(0, lanes.Length - 1);
+        int lane = Random.Range(0, lanes.Length);
         lanes[lane].SpawnObstacle();
+
+        if(lanes[lane].name == "Center")
+        {
+            for (int i = 0; i < lanes.Length; i++)
+            {
+                if (i != lane)
+                    lanes[lane].StartCooldown(lanes[lane].Cooldown);
+            }
+        }
     }
 }

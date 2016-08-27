@@ -10,6 +10,8 @@ public class RunnerLane : MonoBehaviour
 
     public bool CanSpawn = true;
     public float MinCooldown = 1f, MaxCooldown = 5f;
+    [HideInInspector]
+    public float Cooldown;
     public float DespawnDist = 20f;
 
     private Coroutine activeCooldown;
@@ -22,7 +24,7 @@ public class RunnerLane : MonoBehaviour
 
     public void Update()
     {
-        if(activeObjects.Count > 0)
+        if (activeObjects.Count > 0)
         {
             GameObject furthestObj = activeObjects[0];
             Vector3 furthestObjPos = furthestObj.transform.position;
@@ -46,10 +48,12 @@ public class RunnerLane : MonoBehaviour
             obstacle.transform.position = transform.TransformPoint(getRootLocalPos(obstacle));
             activeObjects.Add(obstacle);
 
-            float cooldown = Random.Range(MinCooldown, MaxCooldown);
-            StartCooldown(cooldown);
+            Cooldown = Random.Range(MinCooldown, MaxCooldown);
+            StartCooldown(Cooldown);
 
-            if(obstacle.name == "RunnerSkeleton")
+
+
+            if (obstacle.name == "RunnerSkeleton")
             {
                 //set cooldown on neighbor
                 RunnerLane neighbor;
@@ -60,7 +64,7 @@ public class RunnerLane : MonoBehaviour
                 else
                     neighbor = transform.parent.FindChild("P4").GetComponent<RunnerLane>();
 
-                neighbor.StartCooldown(cooldown);
+                neighbor.StartCooldown(Cooldown);
             }
         }
     }
@@ -78,6 +82,11 @@ public class RunnerLane : MonoBehaviour
             StopCoroutine(activeCooldown);
 
         activeCooldown = StartCoroutine(SetCooldown(time));
+    }
+
+    public void StartCooldown()
+    {
+        StartCooldown(Random.Range(MinCooldown, MaxCooldown));
     }
 
     IEnumerator SetCooldown(float time)
@@ -112,6 +121,7 @@ public class RunnerLane : MonoBehaviour
 
         GameObject newObj = GameObject.Instantiate(ObstaclePrefabs[prefabIndex]);
         newObj.name = ObstaclePrefabs[prefabIndex].name;
+        //newObj.GetComponent<RunnerObstacle>().Parent = this;
         return newObj;
     }
 }
