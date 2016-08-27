@@ -9,6 +9,7 @@ public class InfiniteGroundController : MonoBehaviour
 
     //pool for ground objects
     private Queue objectPool;
+    private GameObject endOfQueue;
 
     //distance between ground objects
     private Vector3 posDelta;
@@ -31,6 +32,8 @@ public class InfiniteGroundController : MonoBehaviour
             objectPool.Enqueue(groundObjects[i]);
         }
 
+        endOfQueue = groundObjects[groundObjects.Length - 1];
+
         //calculate distance between ground objects
         if (groundObjects.Length > 1)
             posDelta = groundObjects[1].transform.position - groundObjects[0].transform.position;
@@ -49,8 +52,9 @@ public class InfiniteGroundController : MonoBehaviour
         {
             //move backmost ground object to the front
             GameObject ground = objectPool.Dequeue() as GameObject;
-            ground.transform.position = (objectPool.Peek() as GameObject).transform.position + posDelta;
+            ground.transform.position = endOfQueue.transform.position + posDelta;
             objectPool.Enqueue(ground);
+            endOfQueue = ground;
         }
     }
 }
