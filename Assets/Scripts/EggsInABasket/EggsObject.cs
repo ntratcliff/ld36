@@ -23,4 +23,13 @@ public class EggsObject : MonoBehaviour
     {
         Spawner.Despawn(this.gameObject);
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Ground")
+        {
+            //disable pickup once on ground
+            transform.tag = "Untagged";
+        }
+    }
 }
