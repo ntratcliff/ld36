@@ -12,23 +12,40 @@ public class RandomSpawner : MonoBehaviour
     public float Radius, Height;
 
     public float MinCooldown, MaxCooldown;
+    public int FrenzyTime;
+    public float FrenzyCooldown;
 
     private bool coroutineRunning = false;
+
+    private Scoreboard scoreboard;
+
 
     // Use this for initialization
     void Start()
     {
         objectPool = new List<GameObject>();
         activeObjects = new List<GameObject>();
+
+        scoreboard = FindObjectOfType<Scoreboard>();
+
+        //set red time to frenzy time on scene timer
+        FindObjectOfType<UpdateTimer>().RedThreshold = FrenzyTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!coroutineRunning)
+        if(!scoreboard.RoundOver && !coroutineRunning)
         {
-            StartCoroutine(Spawn(Random.Range(MinCooldown, MaxCooldown)));
+            float cooldown = FrenzyCooldown;
+
+            int seconds = Mathf.RoundToInt(scoreboard.RoundTime);
+            if(seconds > FrenzyTime)
+                cooldown = Random.Range(MinCooldown, MaxCooldown);
+
+            StartCoroutine(Spawn(cooldown));
         }
+
     }
 
     private GameObject depool(int i)
