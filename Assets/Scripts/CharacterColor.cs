@@ -16,35 +16,42 @@ public class CharacterColor : MonoBehaviour
     {
         //get tunic 
         Transform torso = transform.FindChild("Body");
-        meshRenderer = torso.GetComponent<SkinnedMeshRenderer>();
-        for (int i = 0; i < meshRenderer.materials.Length; i++)
+        if(torso != null)
         {
-            if (meshRenderer.materials[i].name.Contains("Tunic"))
+            meshRenderer = torso.GetComponent<SkinnedMeshRenderer>();
+            for (int i = 0; i < meshRenderer.materials.Length; i++)
             {
-                tunicMat = meshRenderer.materials[i];
-                tunicIndex = i;
+                if (meshRenderer.materials[i].name.Contains("Tunic"))
+                {
+                    tunicMat = meshRenderer.materials[i];
+                    tunicIndex = i;
+                }
             }
-        }
 
-        if (tunicMat == null)
-            Debug.LogError("Could not find tunic material!");
+            if (tunicMat == null)
+                Debug.LogError("Could not find tunic material!");
 
-        tunicColor = Palette.GetColor(Color);
-        if(tunicMat.color != tunicColor)
-        {
-            tunicMat.color = tunicColor;
+            tunicColor = Palette.GetColor(Color);
+            if (tunicMat.color != tunicColor)
+            {
+                tunicMat.color = tunicColor;
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //update color
-        tunicColor = Palette.GetColor(Color);
-        if (tunicMat.color != tunicColor)
+        if(meshRenderer != null)
         {
-            tunicMat.color = tunicColor;
-            //meshRenderer.materials[tunicIndex] = tunicMat;
+            //update color
+            tunicColor = Palette.GetColor(Color);
+            if (tunicMat.color != tunicColor)
+            {
+                tunicMat.color = tunicColor;
+                //meshRenderer.materials[tunicIndex] = tunicMat;
+            }
         }
+        
     }
 }

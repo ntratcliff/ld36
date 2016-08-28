@@ -12,6 +12,7 @@ public class SawController : MonoBehaviour
     private PlayerScore playerScore;
     private PlayerInfo playerInfo;
     private SawGoodGame gameController;
+    private Scoreboard scoreboard;
 
     private float topY;
     private float targetX;
@@ -24,6 +25,7 @@ public class SawController : MonoBehaviour
         playerScore = GetComponentInParent<PlayerScore>();
         playerInfo = GetComponentInParent<PlayerInfo>();
         gameController = FindObjectOfType<SawGoodGame>();
+        scoreboard = FindObjectOfType<Scoreboard>();
 
         topY = transform.position.y;
     }
@@ -31,7 +33,7 @@ public class SawController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameController.TargetScore > playerScore.Score)
+        if(!scoreboard.RoundOver && gameController.TargetScore > playerScore.Score)
         {
             float triggers = playerInfo.GetAxis("Triggers");
             if (positive && triggers > 0
