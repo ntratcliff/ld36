@@ -45,7 +45,13 @@ public class RandomSpawner : MonoBehaviour
 
             StartCoroutine(Spawn(cooldown));
         }
-
+        else if(scoreboard.RoundOver)
+        {
+            for (int i = 0; i < activeObjects.Count; i++)
+            {
+                activeObjects[i].tag = "Untagged";
+            }
+        }
     }
 
     private GameObject depool(int i)

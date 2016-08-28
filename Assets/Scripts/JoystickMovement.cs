@@ -36,13 +36,18 @@ public class JoystickMovement : MonoBehaviour
 
         //point player to movement direction
         direction.Normalize();
-        Debug.Log(direction);
         if (direction != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 Quaternion.LookRotation(direction),
                 Time.deltaTime * RotationSpeed);
+        }
+
+        //report velocity to animator if it exists
+        if(GetComponent<Animator>() != null)
+        {
+            GetComponent<Animator>().SetFloat("VelocityMagnitude", velo.magnitude/SpeedMultiplier);
         }
     }
 }

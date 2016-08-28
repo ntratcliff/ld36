@@ -32,12 +32,14 @@ public class Scoreboard : MonoBehaviour
     void Update()
     {
         if(!RoundOver)
+        {
             RoundTime -= Time.deltaTime;
 
-        if(RoundTime <= 0)
-        {
-            RoundTime = 0f;
-            EndRound();
+            if (RoundTime <= 0)
+            {
+                RoundTime = 0f;
+                EndRound();
+            }
         }
     }
 
