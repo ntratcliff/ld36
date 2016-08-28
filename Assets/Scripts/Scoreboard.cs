@@ -9,6 +9,8 @@ public class Scoreboard : MonoBehaviour
     public float RoundTime;
     private PlayerScore[] scores;
 
+    public bool UseTimer = true;
+
     [Tooltip("Should the scoreboard declare a winner at the end of round time?")]
     public bool DeclareWinner = true;
 
@@ -31,7 +33,7 @@ public class Scoreboard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!RoundOver)
+        if(!RoundOver && UseTimer)
         {
             RoundTime -= Time.deltaTime;
 

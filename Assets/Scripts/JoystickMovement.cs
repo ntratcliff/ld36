@@ -23,8 +23,8 @@ public class JoystickMovement : MonoBehaviour
         Transform view = Camera.main.transform.parent.parent;
 
         //move forward for vertical axis
-        float vertical = playerInfo.getAxis("Vertical") * SpeedMultiplier;
-        float horizontal = playerInfo.getAxis("Horizontal") * SpeedMultiplier;
+        float vertical = playerInfo.GetAxis("Vertical") * SpeedMultiplier;
+        float horizontal = playerInfo.GetAxis("Horizontal") * SpeedMultiplier;
 
         Vector3 direction = new Vector3(horizontal, 0, vertical);
         direction = view.TransformDirection(direction);
