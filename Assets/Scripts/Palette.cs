@@ -13,10 +13,10 @@ class Palette
 
     public static string[] Hex =
     {
-        "c13a3a",
-        "9bdc8b",
-        "a7a6c1",
-        "5599c0"
+        "932c2c",
+        "76a86a",
+        "7f7e93",
+        "417592"
     };
 
     public static Color GetColor(PaletteColor color)
