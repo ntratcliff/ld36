@@ -31,27 +31,17 @@ public class GlobalPlayerInfo : MonoBehaviour
     /// </summary>
     private void disableInactivePlayers()
     {
+        int playerNum = 1;
         for (int i = 0; i < playersInScene.Count(); i++)
         {
-            if (!players.Any(x => x.GetComponent<PlayerInfo>().PlayerNum == i + 1))
+            if (!players.Any(x => x.GetComponent<PlayerInfo>().PlayerNum == playerNum))
             {
                 //playersInScene[i].SetActive(false);
                 GameObject.Destroy(playersInScene[i]);
                 playersInScene.RemoveAt(i);
                 i--;
             }
-            //bool playerFound = false;
-            //for (int ii = 0; ii < players.Count(); ii++)
-            //{
-            //    if (players[ii].GetComponent<PlayerInfo>().PlayerNum == playersInScene[i].GetComponent<PlayerInfo>().PlayerNum)
-            //        break;
-            //}
-
-            //if(!playerFound)
-            //{
-            //    GameObject.Destroy(playersInScene[i]);
-            //    playersInScene.RemoveAt(i);
-            //}
+            playerNum++;
 
         }
     }
