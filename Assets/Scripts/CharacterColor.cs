@@ -5,6 +5,8 @@ public class CharacterColor : MonoBehaviour
 {
     public PaletteColor Color;
     private Color tunicColor;
+
+    public bool ColorFromParent = false;
     //TODO: skin color?
 
     private SkinnedMeshRenderer meshRenderer;
@@ -14,6 +16,9 @@ public class CharacterColor : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if(ColorFromParent)
+            Color = GetComponentInParent<CharacterColor>().Color;
+
         //get tunic 
         Transform torso = transform.FindChild("Body");
         if(torso != null)

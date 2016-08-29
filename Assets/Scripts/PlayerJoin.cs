@@ -42,6 +42,12 @@ public class PlayerJoin : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
         }
+        else if( !buttonDown && playerJoined
+            && Player == 1 && Input.GetAxis("P1 " + JoinAxis) != 0)
+        {
+            //TODO: replace this when rounds are added
+            SceneManager.LoadScene("SawGood");
+        }
 
         buttonDown = (Input.GetAxis("P" + Player + " " + JoinAxis) != 0
             || Input.GetAxis("P" + Player + " " + ExitAxis) != 0);

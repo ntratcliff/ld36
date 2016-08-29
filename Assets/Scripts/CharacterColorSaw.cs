@@ -14,6 +14,8 @@ public class CharacterColorSaw : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Color = GetComponentInParent<CharacterColor>().Color;
+
         //get tunic 
         Transform torso = transform.FindChild("Body");
         if (torso != null)

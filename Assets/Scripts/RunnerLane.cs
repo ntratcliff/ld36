@@ -30,9 +30,6 @@ public class RunnerLane : MonoBehaviour
             Vector3 furthestObjPos = furthestObj.transform.position;
             Debug.DrawRay(furthestObjPos, Vector3.up);
             float dist = Vector3.Distance(transform.position, furthestObjPos);
-            Debug.Log(dist);
-            Debug.Log(furthestObjPos);
-            Debug.Log(transform.position);
             if (dist >= DespawnDist)
                 DespawnObstacle(activeObjects[0]);
         }

@@ -12,11 +12,11 @@ public class UpdateScore : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        PlayerInfo[] players = FindObjectsOfType<PlayerInfo>();
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < players.Length; i++)
         {
-            if (players[i].PlayerNum == Player)
+            if (players[i].GetComponent<PlayerInfo>().PlayerNum == Player)
             {
                 CharacterColor playerColor = players[i].GetComponent<CharacterColor>();
                 hexColor = Palette.GetHex(playerColor.Color);

@@ -8,7 +8,7 @@ public class GlobalPlayerInfo : MonoBehaviour
     public GameObject PlayerInfoPrefab;
 
     private List<GameObject> players;
-    private GameObject[] playersInScene;
+    private List<GameObject> playersInScene;
 
     // Use this for initialization
     void Start()
@@ -21,6 +21,7 @@ public class GlobalPlayerInfo : MonoBehaviour
     {
         playersInScene = GetPlayersInScene();
         disableInactivePlayers();
+
         setPlayerInfoInScene();
     }
 
@@ -30,10 +31,28 @@ public class GlobalPlayerInfo : MonoBehaviour
     /// </summary>
     private void disableInactivePlayers()
     {
-        for (int i = 0; i < playersInScene.Length; i++)
+        for (int i = 0; i < playersInScene.Count(); i++)
         {
-            if (!players.Any(x => x.GetComponent<PlayerInfo>().PlayerNum == i))
-                playersInScene[i].SetActive(false);
+            if (!players.Any(x => x.GetComponent<PlayerInfo>().PlayerNum == i + 1))
+            {
+                //playersInScene[i].SetActive(false);
+                GameObject.Destroy(playersInScene[i]);
+                playersInScene.RemoveAt(i);
+                i--;
+            }
+            //bool playerFound = false;
+            //for (int ii = 0; ii < players.Count(); ii++)
+            //{
+            //    if (players[ii].GetComponent<PlayerInfo>().PlayerNum == playersInScene[i].GetComponent<PlayerInfo>().PlayerNum)
+            //        break;
+            //}
+
+            //if(!playerFound)
+            //{
+            //    GameObject.Destroy(playersInScene[i]);
+            //    playersInScene.RemoveAt(i);
+            //}
+
         }
     }
 
@@ -42,7 +61,7 @@ public class GlobalPlayerInfo : MonoBehaviour
     /// </summary>
     private void setPlayerInfoInScene()
     {
-        for (int i = 0; i < playersInScene.Length; i++)
+        for (int i = 0; i < playersInScene.Count(); i++)
         {
             //set color
             playersInScene[i].GetComponent<CharacterColor>().Color = players[i].GetComponent<CharacterColor>().Color;
@@ -59,7 +78,7 @@ public class GlobalPlayerInfo : MonoBehaviour
     {
         GameObject playerinfo = GameObject.Instantiate(PlayerInfoPrefab);
         playerinfo.GetComponent<PlayerInfo>().PlayerNum = p;
-        playerinfo.GetComponent<CharacterColor>().Color = (PaletteColor)p;
+        playerinfo.GetComponent<CharacterColor>().Color = (PaletteColor)(p - 1);
         playerinfo.name = "P" + p;
 
         playerinfo.transform.parent = this.transform;
@@ -84,9 +103,9 @@ public class GlobalPlayerInfo : MonoBehaviour
         return false;
     }
 
-    public GameObject[] GetPlayersInScene()
+    public List<GameObject> GetPlayersInScene()
     {
         return GameObject.FindGameObjectsWithTag("Player")
-            .OrderBy(x => x.GetComponent<PlayerInfo>().PlayerNum).ToArray();
+            .OrderBy(x => x.GetComponent<PlayerInfo>().PlayerNum).ToList();
     }
 }
