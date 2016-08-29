@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GlobalPlayerInfo : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class GlobalPlayerInfo : MonoBehaviour
 
     public void OnLevelWasLoaded(int level)
     {
+        if(SceneManager.GetSceneAt(level).name == "MainMenu")
+        {
+            //destroy this object on main menu
+            GameObject.Destroy(this.gameObject);
+            return;
+        }
+
         playersInScene = GetPlayersInScene();
         disableInactivePlayers();
 
