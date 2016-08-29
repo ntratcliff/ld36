@@ -8,6 +8,8 @@ public class RunnerWinState : MonoBehaviour
     private GameObject playersContainer;
     private bool coroutineRunning;
 
+    public float NextSceneDelay;
+
     // Use this for initialization
     void Start()
     {
@@ -45,5 +47,8 @@ public class RunnerWinState : MonoBehaviour
         }
 
         uiText.text = winText;
+
+        yield return new WaitForSeconds(NextSceneDelay);
+        GetComponent<NextScene>().GoToScene();
     }
 }

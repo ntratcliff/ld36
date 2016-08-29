@@ -20,6 +20,8 @@ public class Scoreboard : MonoBehaviour
     [HideInInspector]
     public bool RoundOver;
 
+    public float NextSceneDelay;
+
     // Use this for initialization
     void Start()
     {
@@ -54,6 +56,13 @@ public class Scoreboard : MonoBehaviour
             PlayerScore[] winners = getWinners();
             setWinText(winners);
         }
+        StartCoroutine(GoToNextScene());
+    }
+
+    IEnumerator GoToNextScene()
+    {
+        yield return new WaitForSeconds(NextSceneDelay);
+        GetComponent<NextScene>().GoToScene();
     }
 
     private PlayerScore[] getWinners()
