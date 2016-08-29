@@ -19,7 +19,7 @@ public class BoulderPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("P" + PlayerNum + " Action") > 0 && onGround)
+        if (Input.GetAxis("P" + PlayerNum + " Action") > 0 && onGround && GetComponent<Rigidbody>().velocity == Vector3.zero)
         {
             //jump
             GetComponent<Rigidbody>().AddForce(transform.up * JumpForce, ForceMode.Impulse);
