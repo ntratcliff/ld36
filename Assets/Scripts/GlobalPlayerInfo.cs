@@ -20,7 +20,7 @@ public class GlobalPlayerInfo : MonoBehaviour
 
     public void OnLevelWasLoaded(int level)
     {
-        if(SceneManager.GetSceneAt(level).name == "MainMenu")
+        if(level == 0)
         {
             //destroy this object on main menu
             GameObject.Destroy(this.gameObject);
