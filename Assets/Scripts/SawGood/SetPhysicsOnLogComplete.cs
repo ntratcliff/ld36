@@ -43,7 +43,6 @@ public class SetPhysicsOnLogComplete : MonoBehaviour
 
                     torque += MinLogTorque;
 
-                    Debug.Log(torque);
                     bodies[i].AddRelativeTorque(torque, ForceMode.Impulse);
                 }
             }
