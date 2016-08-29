@@ -16,7 +16,7 @@ public class SecondaryLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!source.isPlaying)
+        if (!source.isPlaying)
         {
             source.clip = LoopClip;
             source.loop = true;
