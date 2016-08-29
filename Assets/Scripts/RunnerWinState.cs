@@ -6,6 +6,7 @@ public class RunnerWinState : MonoBehaviour
 {
     public float WinConfirmationDelay;
     private GameObject playersContainer;
+    private GlobalPlayerInfo gPlayerInfo;
     private bool coroutineRunning;
 
     public float NextSceneDelay;
@@ -17,7 +18,7 @@ public class RunnerWinState : MonoBehaviour
     {
         playersContainer = GameObject.Find("Runner/Players");
 
-        GlobalPlayerInfo gPlayerInfo = FindObjectOfType<GlobalPlayerInfo>();
+        gPlayerInfo = FindObjectOfType<GlobalPlayerInfo>();
         if(gPlayerInfo != null)
             singlePlayerMode = gPlayerInfo.NumPlayers == 1;
     }
@@ -40,6 +41,7 @@ public class RunnerWinState : MonoBehaviour
     {
         yield return new WaitForSeconds(WinConfirmationDelay);
 
+        //set win text
         Text uiText = GameObject.Find("Canvas/WinText").GetComponent<Text>();
         string winText = "Tie!";
 
@@ -51,6 +53,18 @@ public class RunnerWinState : MonoBehaviour
             string hexColor = Palette.GetHex(c);
 
             winText = "<color='#" + hexColor + "'>" + winner.name + "</color> wins!";
+
+            //increment winner's score
+            gPlayerInfo.IncrementPlayerScore(winner.GetComponent<PlayerInfo>().PlayerNum);
+        }
+        else
+        {
+            //increment winners' scores
+            for (int i = 0; i < playerCount; i++)
+            {
+                Transform player = playersContainer.transform.GetChild(i);
+                gPlayerInfo.IncrementPlayerScore(player.GetComponent<PlayerInfo>().PlayerNum);
+            }
         }
 
         uiText.text = winText;

@@ -21,6 +21,7 @@ public class SawGoodGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!scoreboard.RoundOver)
         for (int i = 0; i < scoreboard.Scores.Length; i++)
         {
             if(scoreboard.Scores[i] == TargetScore)

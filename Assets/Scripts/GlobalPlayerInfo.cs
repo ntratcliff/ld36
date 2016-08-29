@@ -145,4 +145,12 @@ public class GlobalPlayerInfo : MonoBehaviour
 
         return transform.FindChild("P" + p).GetComponent<PlayerScore>();
     }
+
+    public void IncrementPlayerScore(int p)
+    {
+        if (!HasPlayer(p))
+            return;
+
+        GetPlayerScore(p).Score++;
+    }
 }

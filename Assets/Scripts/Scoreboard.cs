@@ -22,6 +22,8 @@ public class Scoreboard : MonoBehaviour
 
     public float NextSceneDelay;
 
+    private GlobalPlayerInfo gPlayerInfo;
+
     // Use this for initialization
     void Start()
     {
@@ -30,6 +32,8 @@ public class Scoreboard : MonoBehaviour
         scores = (from obj in scores
                   orderby obj.GetComponent<PlayerInfo>().PlayerNum
                   select obj).ToArray();
+
+        gPlayerInfo = FindObjectOfType<GlobalPlayerInfo>();
     }
 
     // Update is called once per frame
@@ -55,8 +59,20 @@ public class Scoreboard : MonoBehaviour
         {
             PlayerScore[] winners = getWinners();
             setWinText(winners);
+            incrementScores(winners);
         }
         StartCoroutine(GoToNextScene());
+    }
+
+    private void incrementScores(PlayerScore[] winners)
+    {
+        if (gPlayerInfo == null)
+            return;
+
+        for (int i = 0; i < winners.Length; i++)
+        {
+            gPlayerInfo.IncrementPlayerScore(winners[i].GetComponent<PlayerInfo>().PlayerNum);
+        }   
     }
 
     IEnumerator GoToNextScene()
