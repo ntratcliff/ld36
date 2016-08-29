@@ -10,10 +10,16 @@ public class RunnerWinState : MonoBehaviour
 
     public float NextSceneDelay;
 
+    private bool singlePlayerMode;
+
     // Use this for initialization
     void Start()
     {
         playersContainer = GameObject.Find("Runner/Players");
+
+        GlobalPlayerInfo gPlayerInfo = FindObjectOfType<GlobalPlayerInfo>();
+        if(gPlayerInfo != null)
+            singlePlayerMode = gPlayerInfo.NumPlayers == 1;
     }
 
     // Update is called once per frame
@@ -22,7 +28,8 @@ public class RunnerWinState : MonoBehaviour
         //check if there is a winner!
         int playerCount = playersContainer.transform.childCount;
 
-        if (playerCount <= 1 && !coroutineRunning)
+        if ((!singlePlayerMode && playerCount <= 1 && !coroutineRunning)
+            || playerCount == 0 && !coroutineRunning)
         {
             StartCoroutine(WinDelay());
             coroutineRunning = true;
@@ -37,7 +44,7 @@ public class RunnerWinState : MonoBehaviour
         string winText = "Tie!";
 
         int playerCount = playersContainer.transform.childCount;
-        if (playerCount == 1)
+        if (playerCount == 1 && !singlePlayerMode)
         {
             Transform winner = playersContainer.transform.GetChild(0);
             PaletteColor c = winner.GetComponentInChildren<CharacterColor>().Color;

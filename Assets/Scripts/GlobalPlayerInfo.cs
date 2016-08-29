@@ -11,6 +11,16 @@ public class GlobalPlayerInfo : MonoBehaviour
     private List<GameObject> players;
     private List<GameObject> playersInScene;
 
+    public List<GameObject> PlayersInScene
+    {
+        get { return playersInScene; }
+    }
+
+    public int NumPlayers
+    {
+        get { return players.Count(); }
+    }
+
     // Use this for initialization
     void Start()
     {

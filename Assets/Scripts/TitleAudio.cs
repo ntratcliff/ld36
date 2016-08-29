@@ -3,7 +3,9 @@ using System.Collections;
 
 public class TitleAudio : MonoBehaviour
 {
+    public AudioClip TitleClip;
     public AudioClip[] Subtitles;
+    public float Volume = 1f;
     public float Delay;
     public float SubtitleDelay;
 
@@ -14,10 +16,10 @@ public class TitleAudio : MonoBehaviour
         //schedule title clip
         StartCoroutine(PlayOneShotDelayed(
             Delay,
-            GetComponent<AudioSource>().clip));
+            TitleClip));
 
         //schedule subtitle clip
-        titleLength = GetComponent<AudioSource>().clip.length;
+        titleLength = TitleClip.length;
         StartCoroutine(PlayOneShotDelayed(
                 Delay + titleLength + SubtitleDelay, 
                 getRandomSubtitle()));
@@ -31,6 +33,6 @@ public class TitleAudio : MonoBehaviour
     IEnumerator PlayOneShotDelayed(float delay, AudioClip clip)
     {
         yield return new WaitForSeconds(delay);
-        GetComponent<AudioSource>().PlayOneShot(clip, GetComponent<AudioSource>().volume);
+        GetComponent<AudioSource>().PlayOneShot(clip, Volume);
     }
 }
