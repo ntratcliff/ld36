@@ -30,9 +30,10 @@ public class GlobalPlayerInfo : MonoBehaviour
     /// </summary>
     private void disableInactivePlayers()
     {
-        for (int i = players.Count() - 1; i < playersInScene.Length; i++)
+        for (int i = 0; i < playersInScene.Length; i++)
         {
-            playersInScene[i].SetActive(false);
+            if (!players.Any(x => x.GetComponent<PlayerInfo>().PlayerNum == i))
+                playersInScene[i].SetActive(false);
         }
     }
 
