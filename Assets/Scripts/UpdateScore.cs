@@ -9,18 +9,32 @@ public class UpdateScore : MonoBehaviour
 
     private string hexColor;
     private PlayerScore playerScore;
+    private GlobalPlayerInfo gPlayerInfo;
+
+    public bool SetColor = true;
+
     // Use this for initialization
     void Start()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
+        gPlayerInfo = FindObjectOfType<GlobalPlayerInfo>();
+        if(gPlayerInfo != null)
+        {
+            playerScore = gPlayerInfo.GetPlayerScore(Player);
+            if (!gPlayerInfo.HasPlayer(Player))
+            {
+                GameObject.Destroy(this.gameObject);
+                return;
+            }
+            hexColor = Palette.GetHex(gPlayerInfo.GetPlayerColor(Player));
+        }
+
+        //default to minigame local score if it exists
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].GetComponent<PlayerInfo>().PlayerNum == Player)
             {
-                CharacterColor playerColor = players[i].GetComponent<CharacterColor>();
-                hexColor = Palette.GetHex(playerColor.Color);
-
                 playerScore = players[i].GetComponent<PlayerScore>();
             }
         }
@@ -30,8 +44,9 @@ public class UpdateScore : MonoBehaviour
     void Update()
     {
         //set score text
-        
-
-        GetComponent<Text>().text = "<color='#" + hexColor + "'>" + playerScore.Score + "</color>";
+        if (SetColor && hexColor != null)
+            GetComponent<Text>().text = "<color='#" + hexColor + "'>" + playerScore.Score + "</color>";
+        else
+            GetComponent<Text>().text = playerScore.Score.ToString();
     }
 }

@@ -106,14 +106,43 @@ public class GlobalPlayerInfo : MonoBehaviour
 
     public bool HasPlayer(int p)
     {
-        if (players.Find(x => x.GetComponent<PlayerInfo>().PlayerNum == p))
-            return true;
-        return false;
+        return players.Any(x => x.GetComponent<PlayerInfo>().PlayerNum == p);
     }
 
     public List<GameObject> GetPlayersInScene()
     {
         return GameObject.FindGameObjectsWithTag("Player")
             .OrderBy(x => x.GetComponent<PlayerInfo>().PlayerNum).ToList();
+    }
+
+    public int[] GetPlayerNums()
+    {
+        return players.Select(p => p.GetComponent<PlayerInfo>().PlayerNum).ToArray();
+    }
+
+    public PaletteColor[] GetPlayerColors()
+    {
+        return players.Select(p => p.GetComponent<CharacterColor>().Color).ToArray();
+    }
+
+    public PaletteColor GetPlayerColor(int p)
+    {
+        int[] nums = GetPlayerNums();
+        PaletteColor[] colors = GetPlayerColors();
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] == p)
+                return colors[i];
+        }
+
+        return PaletteColor.InvalidColor;
+    }
+
+    public PlayerScore GetPlayerScore(int p)
+    {
+        if (!HasPlayer(p))
+            return null;
+
+        return transform.FindChild("P" + p).GetComponent<PlayerScore>();
     }
 }
