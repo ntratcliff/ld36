@@ -5,13 +5,13 @@ public class DelayStartSaw : MonoBehaviour
 {
     public float startDelay;
     private float timeSinceStart;
-    private GameObject[] players;
+    private bool fired;
     // Use this for initialization
     void Start()
     {
         timeSinceStart = 0;
 
-        players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -24,9 +24,10 @@ public class DelayStartSaw : MonoBehaviour
     {
         timeSinceStart += Time.deltaTime;
 
-        if (timeSinceStart > startDelay)
+        if (timeSinceStart > startDelay && !fired)
         {
-
+            fired = true;
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < players.Length; i++)
             {
                 players[i].transform.Find("Saw").GetComponent<SawController>().enabled = true;

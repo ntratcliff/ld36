@@ -5,14 +5,14 @@ public class DelayStartEggs : MonoBehaviour
 {
     public float startDelay;
     private float timeSinceStart;
-    private GameObject[] players;
+    private bool fired;
     // Use this for initialization
     void Start()
     {
         timeSinceStart = 0;
         gameObject.GetComponent<Scoreboard>().UseTimer = false;
         gameObject.GetComponent<RandomSpawner>().enabled = false;
-        players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -25,8 +25,10 @@ public class DelayStartEggs : MonoBehaviour
     {
         timeSinceStart += Time.deltaTime;
 
-        if (timeSinceStart > startDelay)
+        if (timeSinceStart > startDelay && !fired)
         {
+            fired = true;
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             gameObject.GetComponent<Scoreboard>().UseTimer = true;
             gameObject.GetComponent<RandomSpawner>().enabled = true;
             for (int i = 0; i < players.Length; i++)
