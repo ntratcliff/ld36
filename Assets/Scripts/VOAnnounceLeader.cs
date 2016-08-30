@@ -28,8 +28,8 @@ public class VOAnnounceLeader : MonoBehaviour
         int winningPlayer = gPlayerInfo.GetWinningPlayer().GetComponent<PlayerInfo>().PlayerNum;
         int losingPlayer = gPlayerInfo.GetLosingPlayer().GetComponent<PlayerInfo>().PlayerNum;
 
-        AudioClip winningClip = LeaderClips[winningPlayer];
-        AudioClip losingClip = LoserClips[losingPlayer];
+        AudioClip winningClip = LeaderClips[winningPlayer - 1];
+        AudioClip losingClip = LoserClips[losingPlayer - 1];
 
         StartCoroutine(PlayDelayed(
             winningClip, 
@@ -45,6 +45,6 @@ public class VOAnnounceLeader : MonoBehaviour
     {
         yield return new WaitForSeconds(Delay);
 
-
+        voSource.PlayOneShot(clip);
     }
 }
