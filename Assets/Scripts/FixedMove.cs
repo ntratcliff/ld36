@@ -18,7 +18,18 @@ public class FixedMove : MonoBehaviour
     [Tooltip("Is movement applied to local pos or global pos")]
     public bool Local;
 
+    public float RampMultiplier;
+    private float elapsedTime;
+    private float speedRamp;
+    private float baseSpeed;
+    public float MaxSpeed;
+
     private Quaternion quaternionDirection;
+
+    public void Start()
+    {
+        baseSpeed = Speed;
+    }
 
     // Update is called once per frame
     void Update()
@@ -28,7 +39,7 @@ public class FixedMove : MonoBehaviour
         NormalizedDirection = (quaternionDirection * Vector3.right);
 
 #if UNITY_EDITOR
-        if(Application.isPlaying)
+        if (Application.isPlaying)
         {
 #endif
             //get displacement for this frame
@@ -39,6 +50,18 @@ public class FixedMove : MonoBehaviour
                 transform.localPosition += displacement;
             else
                 transform.position += displacement;
+
+            if(Speed < MaxSpeed)
+            {
+                speedRamp += RampMultiplier * elapsedTime;
+                Speed = baseSpeed + speedRamp;
+            }
+            else
+            {
+                Speed = MaxSpeed;
+            }
+            
+            elapsedTime += Time.deltaTime;
 #if UNITY_EDITOR
         }
 #endif

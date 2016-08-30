@@ -153,4 +153,14 @@ public class GlobalPlayerInfo : MonoBehaviour
 
         GetPlayerScore(p).Score++;
     }
+
+    public GameObject GetWinningPlayer()
+    {
+        return players.OrderBy(p => p.GetComponent<PlayerScore>().Score).First();
+    }
+
+    public GameObject GetLosingPlayer()
+    {
+        return players.OrderByDescending(p => p.GetComponent<PlayerScore>().Score).First();
+    }
 }

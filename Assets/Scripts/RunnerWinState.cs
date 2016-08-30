@@ -45,6 +45,9 @@ public class RunnerWinState : MonoBehaviour
         Text uiText = GameObject.Find("Canvas/WinText").GetComponent<Text>();
         string winText = "Tie!";
 
+        //get VO player
+        GameObject voObj = GameObject.FindGameObjectWithTag("NarrationPlayer");
+
         int playerCount = playersContainer.transform.childCount;
         if (playerCount == 1 && !singlePlayerMode)
         {
@@ -55,7 +58,13 @@ public class RunnerWinState : MonoBehaviour
             winText = "<color='#" + hexColor + "'>" + winner.name + "</color> wins!";
 
             //increment winner's score
-            gPlayerInfo.IncrementPlayerScore(winner.GetComponent<PlayerInfo>().PlayerNum);
+            int playerNum = winner.GetComponent<PlayerInfo>().PlayerNum;
+
+            gPlayerInfo.IncrementPlayerScore(playerNum);
+
+            //play win VO
+            if (voObj != null)
+                voObj.GetComponent<VOWinAnnoucement>().PlayWinner(playerNum);
         }
         else
         {
@@ -65,6 +74,10 @@ public class RunnerWinState : MonoBehaviour
                 Transform player = playersContainer.transform.GetChild(i);
                 gPlayerInfo.IncrementPlayerScore(player.GetComponent<PlayerInfo>().PlayerNum);
             }
+
+            //play tie VO
+            if (voObj != null)
+                voObj.GetComponent<VOWinAnnoucement>().PlayTie();
         }
 
         uiText.text = winText;

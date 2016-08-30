@@ -59,9 +59,22 @@ public class Scoreboard : MonoBehaviour
         {
             PlayerScore[] winners = getWinners();
             setWinText(winners);
+            playWinVO(winners);
             incrementScores(winners);
         }
         StartCoroutine(GoToNextScene());
+    }
+
+    public void playWinVO(PlayerScore[] winners)
+    {
+        GameObject voObj = GameObject.FindGameObjectWithTag("NarrationPlayer");
+        if (voObj == null)
+            return;
+
+        if (winners.Length > 1)
+            voObj.GetComponent<VOWinAnnoucement>().PlayTie();
+        else
+            voObj.GetComponent<VOWinAnnoucement>().PlayWinner(winners[0].GetComponent<PlayerInfo>().PlayerNum);
     }
 
     private void incrementScores(PlayerScore[] winners)
